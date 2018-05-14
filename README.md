@@ -2,7 +2,7 @@
 Final Project for **INFO 201** Spring 2018
 
 ## Project Description
-  The data set that we will be using is the **Seattle Pet License data set** on __Kaggle__.  The data set was created by __Rachael Tatman, Ali l. Tayih, and Omar Shandaq__.  The data set includes data about the pet licenses issued by the Seattle Animal Shelter between the 2005 and 2017.  The data set also includes Tax returns by income bracket and what animals they received licenses for.
+  The data set that we will be using is the **Seattle Pet License data set** on __Kaggle__.  The data set was created by _Rachael Tatman, Ali l. Tayih, and Omar Shandaq_.  The data set includes data about the pet licenses issued by the Seattle Animal Shelter between the 2005 and 2017.  The data set also includes Tax returns by income bracket and what animals they received licenses for.
 
   The **target audience** is primarily people interested in animal adoptions and how finances play into the choices people make about what animal to adopt.
 
