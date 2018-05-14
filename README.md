@@ -9,4 +9,4 @@ Final Project for info 201 spring 2018
   Audiences can hope to learn about how finances effect decisions in pet adoptions, what animals are most adopted and which are least adopted in the Seattle area, and the correlations between tax bracket and the animal adopted.
 
 ## Technical Description
-  The data will be read in with via the read.csv function in R.  The pet license data will need to be joined with the tax returns by income bracket data.  This project will rely on the common libraries used and taught in the course.  We anticipate creating the plotly interactive map to be the most difficult, however we all have very limited coding experience and the shiny webpage looks like it might cause lots of problems.
+  The data will be read in via the read.csv function in R.  The pet license data will need to be joined with the tax returns by income bracket data.  This project will rely on the common libraries used and taught in the course.  We anticipate creating the plotly interactive map to be the most difficult, however we all have very limited coding experience and the shiny webpage looks like it might cause lots of problems.
