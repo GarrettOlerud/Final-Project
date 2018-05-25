@@ -4,6 +4,8 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(shiny)
+library(ggmap)
+source("summary.R")
 pet_data <- read.csv("data/seattle_pet_licenses.csv", stringsAsFactors = FALSE)
 tax_data <- read.delim("data/wa_incomes_zip_code.csv", 
                        stringsAsFactors = FALSE) # S/O to Adele for rescuing us
@@ -14,20 +16,5 @@ ui <- fluidPage(theme = "style.css",
        titlePanel("Page 1"),
         headerPanel("subheading"),
           sidebarLayout("widgets / descriptive paragraph"),
-            mainPanel(plotOutput("some kind of graph make sure to add y to plot if ploty"))),
-      tabPanel(
-        titlePanel("Page 2"),
-          headerPanel("subheading"),
-            sidebarLayout("widgets / descriptive paragraph"),
-              mainPanel(plotOutput("some kind of graph make sure to add y to plot if ploty"))),
-      tabPanel(
-        titlePanel("Page 3"),
-          headerPanel("subheading"),
-            sidebarLayout("widgets / descriptive paragraph"),
-              mainPanel(plotOutput("some kind of graph make sure to add y to plot if ploty"))),
-      tabPanel(
-        titlePanel("Page 4"),
-          headerPanel("subheading"),
-            sidebarLayout("widgets / descriptive paragraph"),
-              mainPanel(plotOutput("some kind of graph make sure to add y to plot if ploty")))
+            mainPanel(plotOutput("plot_pet")))
         )

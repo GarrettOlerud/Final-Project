@@ -44,7 +44,6 @@ freqfunc <- function(x, n){
 top_5_dogs <- freqfunc(most_adopted$primary_breed, 5)
 top_5_dogs_df <- data.frame(top_5_dogs) %>% arrange(desc(Freq))
 
-
 most_adopted_cats <- most_adopted %>% filter(species == "Cat")
 
 top_5_cats <- freqfunc(most_adopted_cats$primary_breed, 5)
