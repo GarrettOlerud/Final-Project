@@ -31,7 +31,7 @@ pet_data_with_lat <- left_join(pet_data, zipcode, by = "zip")
 
 
 
-
+zip
 
 
 
