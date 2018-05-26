@@ -12,10 +12,23 @@ tax_data <- read.delim("data/wa_incomes_zip_code.csv",
 # from this _tab_ seperated file.
 
 # Begin UI
-ui <- fluidPage(theme = "style.css",
-        "Animal adoptions and tax brackets?",
-      tabPanel(
-       titlePanel("Page 1"),
-        headerPanel("subheading"),
-          sidebarLayout("widgets / descriptive paragraph"),
-            mainPanel(plotOutput("plot_pet"))))
+
+ui <- navbarPage(
+  theme = "style.css",
+  # tab 1
+  "A8",
+  tabPanel(
+    titlePanel("Midwest Poverty"),
+    headerPanel("Select Midwest Poverty Data"),
+    sidebarPanel(
+      selectInput("xcola", "x variable", names(pet_data_with_lat)),
+      sliderInput("decimal", "Poverty Percentage:",
+                  min = 81, max = 100,
+                  value = 81, step = 1
+      ),
+      selected = names(df_m)[[2]]
+    ),
+    mainPanel(
+      plotlyOutput("plot_pet")
+    )
+  ))
