@@ -83,3 +83,6 @@ most_adopted_cats <- most_adopted %>% filter(species == "Cat")
 top_5_cats <- freqfunc(most_adopted_cats$primary_breed, 5)
 top_5_cats_df <- data.frame(top_5_cats) %>% arrange(desc(Freq))
 colnames(top_5_cats_df) <- c("Cat Breed", "Frequency")
+#fiter data to be just cats or dogs for plotting
+cat_plot <- pet_data_with_lat %>% filter(species == "Cat")
+dog_plot <- pet_data_with_lat %>% filter(species == "Dog")

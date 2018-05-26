@@ -3,21 +3,21 @@ library(ggplot2)
 library(ggmap)
 source("summary.r")
 
-my_location <- c( lon = -120.74, lat = 47.75)
+my_location <- "University of Washington"
 my_map <- get_map(location = my_location,
                     source = "google",
                       maptype = "roadmap",
                        crop = FALSE,
-                         zoom = 6)
+                         zoom = 11)
 ggmap(my_map)
 
 shinyServer(function(input, output){
-  output$pet_plot <- renderPlot(ggmap(my_map)+
-                                  geom_point(aes(x = longitude, y = latitude),
-                                              data = pet_data_with_lat,
+  output$plot_pet <- renderPlot(ggmap(my_map)+
+                                  geom_jitter(aes(x = longitude, y = latitude),
+                                              data = input$xcol,
                                                 alpha = .5,
                                                   color = "darkred",
-                                                    size = 3)
-    
-  )
+                                                    size = .1,
+                                                      width = .01,
+                                                        height = .01))
 })

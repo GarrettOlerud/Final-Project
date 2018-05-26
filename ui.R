@@ -16,19 +16,16 @@ tax_data <- read.delim("data/wa_incomes_zip_code.csv",
 ui <- navbarPage(
   theme = "style.css",
   # tab 1
-  "A8",
+  "Final",
   tabPanel(
-    titlePanel("Midwest Poverty"),
-    headerPanel("Select Midwest Poverty Data"),
+    titlePanel("Pet Adoptions In Seattle"),
+    headerPanel("Select"),
     sidebarPanel(
-      selectInput("xcola", "x variable", names(pet_data_with_lat)),
-      sliderInput("decimal", "Poverty Percentage:",
-                  min = 81, max = 100,
-                  value = 81, step = 1
-      ),
-      selected = names(df_m)[[2]]
-    ),
+      selectInput("xcol",
+        label = "Data Displayed",
+          choices = c(cat_plot, dog_plot, pet_data_with_lat)),
+            selected = pet_data_with_lat),
     mainPanel(
-      plotlyOutput("plot_pet")
-    )
-  ))
+      plotOutput("plot_pet")
+    ))
+  )
