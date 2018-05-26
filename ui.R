@@ -27,5 +27,20 @@ ui <- navbarPage(
             selected = pet_data_with_lat),
     mainPanel(
       plotOutput("plot_pet")
+    )),
+  tabPanel(
+    titlePanel("chloropleth Map"),
+    headerPanel("something insightful"),
+    sidebarPanel("descriptive paragraphs or widgets"),
+    mainPanel(
+      plotOutput("chloro_plot")
+    )),
+  tabPanel(
+    titlePanel("Top 5 adoptions"),
+    headerPanel("Top 5 Dogs and Cats"),
+    sidebarPanel("description of two tabels"),
+    mainPanel(
+      tableOutput("pop_dog"),
+      tableOutput("pop_cat")
     ))
   )
