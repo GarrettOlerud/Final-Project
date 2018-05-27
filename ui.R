@@ -4,6 +4,7 @@ library(ggplot2)
 library(plotly)
 library(shiny)
 library(ggmap)
+library(DT)
 source("summary.R")
 pet_data <- read.csv("data/seattle_pet_licenses.csv", stringsAsFactors = FALSE,
                      na.strings = c("", " ", "NA", "   ", "     "))
@@ -23,8 +24,8 @@ ui <- navbarPage(
     sidebarPanel(
       selectInput("xcol",
         label = "Data Displayed",
-          choices = c(cat_plot, dog_plot, pet_data_with_lat)),
-            selected = pet_data_with_lat),
+          choices = list("pet_data_with_lat", "cat_plot", "dog_plot")),
+            selected = "pet_data_with_lat"),
     mainPanel(
       plotOutput("plot_pet")
     )),
@@ -39,8 +40,8 @@ ui <- navbarPage(
     titlePanel("Top 5 adoptions"),
     headerPanel("Top 5 Dogs and Cats"),
     sidebarPanel("description of two tabels"),
-    mainPanel(
-      tableOutput("pop_dog"),
-      tableOutput("pop_cat")
+    mainPanel(DT::dataTableOutput("top_5_cats_df"),
+              DT::dataTableOutput("top_5_dogs_df")
+    )
     ))
-  )
+  
