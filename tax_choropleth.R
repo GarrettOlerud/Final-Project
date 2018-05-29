@@ -48,13 +48,8 @@ zip_codes <- c(
   "98178", "98195", "98199"
 )
 
-# Get King County FIP
-sea_fips <- zip.regions[zip.regions$region %in% zip_codes, ]
-sea_fips <- sea_fips$county.fips.numeric
-sea_fips <- unique(sea_fips)
-
 # Tax choropleth map
-zip_choropleth(max_bracket,
+tax_map <- zip_choropleth(max_bracket,
                zip_zoom = zip_codes,
                title = "Most Prevalent Income Bracket in Each Seattle Zipcode",
                legend = "Tax Bracket") +
