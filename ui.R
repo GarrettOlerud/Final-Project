@@ -22,13 +22,16 @@ ui <- navbarPage(
     titlePanel("Pet Adoptions In Seattle"),
     headerPanel("Select"),
     sidebarPanel(
+      #define widgets and choices
       selectInput("xcol",
         label = "Data Displayed",
           choices = list("pet_data_with_lat", "cat_plot", "dog_plot")),
             selected = "pet_data_with_lat"),
-    mainPanel(
-      plotOutput("plot_pet")
+    #output plot
+      mainPanel(
+        plotOutput("plot_pet")
     )),
+  #second page
   tabPanel(
     titlePanel("chloropleth Map"),
     headerPanel("something insightful"),
@@ -36,6 +39,7 @@ ui <- navbarPage(
     mainPanel(
       plotOutput("chloro_plot")
     )),
+  #third page
   tabPanel(
     titlePanel("Top 5 adoptions"),
     headerPanel("Top 5 Dogs and Cats"),
