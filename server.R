@@ -30,4 +30,5 @@ shinyServer(function(input, output){
  })
  output$top_5_dogs_df <- DT::renderDataTable({top_5_dogs_df
    })
+ output$pet_data <- DT::renderDataTable({pet_data})
 })
