@@ -31,7 +31,7 @@ pet_data_with_lat <- left_join(pet_data, zipcode, by = "zip")
 #tax_data_clean <- clean.zipcodes(tax_data)
 #tax_with_lat <- left_join(zipcode, tax_data)
 
-#Working on most_adopted_pets visualization below
+#Find most top 5 adopted dogs and cats by breed
 most_adopted <- pet_data_with_lat %>% select(primary_breed,
                                               species, zip, city, latitude, longitude)
 #Function from David Arenburg
@@ -48,3 +48,5 @@ most_adopted_cats <- most_adopted %>% filter(species == "Cat")
 
 top_5_cats <- freqfunc(most_adopted_cats$primary_breed, 5)
 top_5_cats_df <- data.frame(top_5_cats) %>% arrange(desc(Freq))
+
+#Find 5 post popular dog names and 5 most popular cat names
