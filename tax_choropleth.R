@@ -28,11 +28,15 @@ max_bracket[max_bracket[, "value"] == "$50,000 under $75,000", "value"] <- "7500
 max_bracket[max_bracket[, "value"] == "$200,000 or more", "value"] <- "200001"
 max_bracket[max_bracket[, "value"] == "$75,000 under $100,000", "value"] <- "100000"
 
+max_bracket <- max_bracket %>%
+  group_by(region) %>%
+  top_n(1)
+
 
 # Begin choropleth map: bring in zipcode data and filter out relevant "fip"
-data(zip.map)
-head(zip.map)
-View(zip.map)
+data("zip.regions")
+head(zip.regions)
+
 zip_codes <- c(
   "98101", "98102", "98103", "98104",
   "98105", "98106", "98107", "98108",
@@ -43,11 +47,16 @@ zip_codes <- c(
   "98154", "98164", "98174", "98177",
   "98178", "98195", "98199"
 )
-sea_fips <- zip.map[zip.map$region %in% zip_codes, ]
+
+# Get King County FIP
+sea_fips <- zip.regions[zip.regions$region %in% zip_codes, ]
+sea_fips <- sea_fips$county.fips.numeric
+sea_fips <- unique(sea_fips)
 
 # Tax choropleth map
 zip_choropleth(max_bracket,
-               county_zoom = sea_fips[1],
+               zip_zoom = zip_codes,
                title = "Most Prevalent Income Bracket in Each Seattle Zipcode",
-               legend = "Tax Bracket")
+               legend = "Tax Bracket") +
+  coord_map()
 
