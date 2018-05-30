@@ -61,16 +61,19 @@ tax_data[, 1] <- as.character(tax_data[, 1]) # Make character to join with zipco
 tax_with_lat <- left_join(tax_data, zipcode, by = "zip")
 
 
-#Find most top 5 adopted dogs and cats by breed
-most_adopted <- pet_data_with_lat %>% select(primary_breed,
-                                              species, zip, city, latitude, longitude)
-#Function from David Arenburg
-#https://tinyurl.com/yafunvtp
+# Find most top 5 adopted dogs and cats by breed
+most_adopted <- pet_data_with_lat %>% select(
+  primary_breed,
+  species, zip, city, latitude, longitude
+)
+# Function from David Arenburg
+# https://tinyurl.com/yafunvtp
 
 # Working on most_adopted_pets visualization below
 most_adopted <- pet_data_with_lat %>% select(
   primary_breed,
-  species, zip, city, latitude, longitude)
+  species, zip, city, latitude, longitude
+)
 # Function from David Arenburg
 # https://tinyurl.com/yafunvtp
 
@@ -91,22 +94,24 @@ top_5_cats <- freqfunc(most_adopted_cats$primary_breed, 5)
 top_5_cats_df <- data.frame(top_5_cats) %>% arrange(desc(Freq))
 
 
-#Find 5 post popular dog names and 5 most popular cat names
+# Find 5 post popular dog names and 5 most popular cat names
 
 colnames(top_5_cats_df) <- c("Cat Breed", "Frequency")
-#fiter data to be just cats or dogs for plotting
+# fiter data to be just cats or dogs for plotting
 cat_plot <- pet_data_with_lat %>% filter(species == "Cat")
 dog_plot <- pet_data_with_lat %>% filter(species == "Dog")
 
 
-#determine most common tax bracket for each zipcode, include the bracket $ range
+# determine most common tax bracket for each zipcode, include the bracket $ range
 
-most_common_bracket <- tax_with_lat %>% select(zip, Adjusted.Gross.Income, Number.of.returns) %>%
-  group_by(zip) %>% top_n(1, Number.of.returns)
+most_common_bracket <- tax_with_lat %>%
+  select(zip, Adjusted.Gross.Income, Number.of.returns) %>%
+  group_by(zip) %>%
+  top_n(1, Number.of.returns)
 
-#determine number of adoptions per zipcode
+# determine number of adoptions per zipcode
 total_adoptions_by_zip <- most_adopted %>% group_by(zip) %>% summarize(count = n())
 
-#join both dataframes
+# join both dataframes
 brackets_adoptions <- left_join(most_common_bracket, total_adoptions_by_zip, by = "zip")
 colnames(brackets_adoptions) <- c("Zip", "Most_Common_Bracket", "Returns", "Total_Adoptions")
