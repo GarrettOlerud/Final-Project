@@ -31,6 +31,21 @@ shinyServer(function(input, output){
  output$top_5_dogs_df <- DT::renderDataTable({top_5_dogs_df
    })
  output$pet_data <- DT::renderDataTable({pet_data})
-})
 
 #Visual on tab 4
+#output$brackets_adoptions_plot <- ggplot(data = brackets_adoptions) +
+ # geom_bar(aes(fill = variable), position = "dodge", stat = "identity") +
+  #labs(x = "Zip Code", y = "Total Adoptions") +
+  #ggtitle("Please Work") +
+  #theme(axis.text.x = element_text(angle = -85, hjust = 0)) + 
+  #scale_fill_discrete(name="Key")
+
+output$brackets_adoptions_plot_2 <-renderPlot({
+  ggplot(data = brackets_adoptions, aes(x = input$Most_Common_Bracket, y = input$Total_Adoptions))  +
+    stat_summary(fun.y = sum, geom = "bar",colour = "#56B4E9", fill = "#56B4E9") +
+    geom_bar(stat = "identity") +
+    labs(title=input$Zip, y =input$Total_Adoptions) +
+    theme_classic() +
+    theme
+}) 
+})
