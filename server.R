@@ -32,3 +32,5 @@ shinyServer(function(input, output){
    })
  output$pet_data <- DT::renderDataTable({pet_data})
 })
+
+#Visual on tab 4
