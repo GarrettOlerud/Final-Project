@@ -3,6 +3,9 @@ library(ggplot2)
 library(ggmap)
 library(DT)
 source("summary.r")
+source("tax_choropleth.R")
+library("choroplethr")
+library("choroplethrZip")
 #set location and build map for ggmap
 my_location <- "University of Washington"
 my_map <- get_map(location = my_location,
@@ -27,8 +30,11 @@ shinyServer(function(input, output){
                                                       width = .01,
                                                        height = .01)})
  # second graph
- # output$chloro_plot <- renderPlot({#Madi just put the plot in here)
-#})
+ output$tax_pleth <- renderPlot({zip_choropleth(max_bracket,
+                                                           zip_zoom = zip_codes,
+                                                           title = "Most Prevalent Income Bracket in Each Seattle Zipcode",
+                                                           legend = "Tax Bracket")
+})
   # Data tables for third page
   output$top_5_cats_df <- DT::renderDataTable({top_5_cats_df
  })
