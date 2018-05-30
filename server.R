@@ -4,6 +4,7 @@ library(ggmap)
 library(DT)
 source("summary.r")
 source("tax_choropleth.R")
+source("adoptions_by_income.R")
 library("choroplethr")
 library("choroplethrZip")
 #Set location and build map for ggmap
