@@ -74,16 +74,33 @@ shinyServer(function(input, output) {
     pet_data
   })
 
-#Output plot for Conclusion & Insights
-output$plot_4 <- renderPlot({
-    df = filter(brackets_adoptions, Zip == input$work)
-    x <- input$work
-    y <- pull(df, input$Total_Adoptions)
-    
-    plot_44 <- ggplot() +
-      geom_bar(mapping = aes(x = x, y = y), stat = "identity") +
-      scale_y_continuous(limits = c(0, 6500)) +
-      labs(x = input$work, y = "Total Adoptions", title = Please)
-    return(plot_44)
-  })
+#Output plots for Conclusion & Insights
+  # Pets vs. Income
+output$income_adoptions <- renderPlot ({
+  ggplot(data = brackets_adoptions_1) +
+    geom_bar(mapping = aes(x = brackets_adoptions_1$Most_Common_Bracket, 
+                           y = brackets_adoptions_1$n), stat = "identity",
+             fill = "midnight blue") +
+    labs(x = "Income Bracket", y = "Pet Adoptions") +
+    geom_text(mapping = aes(x = brackets_adoptions_1$Most_Common_Bracket, 
+                            y = brackets_adoptions_1$n,
+                            label = brackets_adoptions_1$lab), vjust = -0.15) +
+    ggtitle("Pet Adoptions by Income Bracket") +
+    theme(axis.text.x  = element_text(angle=-45, hjust=0,colour="black")) +
+    scale_x_discrete(breaks = brackets_adoptions_1$Most_Common_Bracket,
+                     limits = c("$1 under $25,000", 
+                                "$25,000 under $50,000",
+                                "$50,000 under $75,000",
+                                "$100,000 under $200,000",
+                                "$200,000 or more"))
 })
+  # Total Pet Adoptions Choropleth
+output$pet_pleth <- renderPlot({
+  zip_choropleth(brackets_adoptions_pet,
+                 zip_zoom = zip_codes,
+                 title = "Total Pet Adoptions in Each Seattle Zipcode",
+                 legend = "Number of Adoptions")
+
+})
+}
+)
