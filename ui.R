@@ -66,16 +66,13 @@ ui <- navbarPage(
               tabPanel("Top Cats", DT::dataTableOutput("top_5_cats_df")),
               tabPanel("Top Dogs", DT::dataTableOutput("top_5_dogs_df")),
               tabPanel("Total", DT::dataTableOutput("pet_data")
-              ))
-   #fourth page
-   tabPanel(
+              ))),
+      tabPanel(
      titlePanel("Conclusion & Insights"),
      headerPanel("something insightful"),
      sidebarPanel("descriptive paragraphs or widgets"),
      mainPanel(
        plotOutput("tax_pleth")
-     ))
+     )))
     
-     )
-    )
   
