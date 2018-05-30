@@ -26,14 +26,13 @@ ui <- navbarPage(
               a("Link to Data", href="https://www.kaggle.com/aaronschlegel/seattle-pet-licenses/version/1"), " and includes")
   ),
   tabPanel(
-    titlePanel("Pet Adoptions In Seattle by Zipcode"),
+    titlePanel("Pet Adoptions by Zipcode"),
     headerPanel("Select"),
-    sidebarPanel(("use the dropdown selector to choose the
+    sidebarPanel(("Use the dropdown selector to choose the
                   the data you would like to see plotted.
-                  pet_data_with_lat plots all of the pet
-                  adoptions from 2005 - 2017 based on their zipcode,
-                  cat_plot showed just the cats adopted from that time,
-                  and dog_plot shows just the dogs."),
+                  Each option plots the pet
+                  adoptions from 2005 - 2017 using zipcode
+                  for All Pets, Cats, or Dogs."),
       #define widgets and choices
       selectInput("xcol",
         label = "Data Displayed",
@@ -53,8 +52,8 @@ ui <- navbarPage(
     )),
   #third page
   tabPanel(
-    titlePanel("Top 5 adoptions"),
-    headerPanel("Top 5 Dogs and Cats"),
+    titlePanel("Top Adoptions"),
+    headerPanel("Top 5 Dog and Cat Adoptions"),
     sidebarPanel("These three tables allow you to see
                  the top five breeds for both Cats and
                  Dogs as well as search for the popularity
@@ -67,7 +66,18 @@ ui <- navbarPage(
               tabPanel("Top Cats", DT::dataTableOutput("top_5_cats_df")),
               tabPanel("Top Dogs", DT::dataTableOutput("top_5_dogs_df")),
               tabPanel("Total", DT::dataTableOutput("pet_data")
-              ))
-    )
-    )
+              ))),
+   #fourth page
+   tabPanel(
+      tabPanel(
+     titlePanel("Conclusion & Insights"),
+     headerPanel("something insightful"),
+     sidebarPanel("descriptive paragraphs or widgets"),
+     mainPanel(
+
+       plotOutput("brackets_adoptions_plot_2")
+     ))
+    ))
+     
+    
   
