@@ -21,12 +21,12 @@ max_bracket <- tax_with_lat %>%
   select(zip, Adjusted.Gross.Income)
 
 colnames(max_bracket) <- c("region", "value")
-max_bracket[max_bracket[, "value"] == "$100,000 under $200,000", "value"] <- "200000"
-max_bracket[max_bracket[, "value"] == "$1 under $25,000", "value"] <- "25000"
-max_bracket[max_bracket[, "value"] == "$25,000 under $50,000", "value"] <- "50000"
-max_bracket[max_bracket[, "value"] == "$50,000 under $75,000", "value"] <- "75000"
-max_bracket[max_bracket[, "value"] == "$200,000 or more", "value"] <- "200001"
-max_bracket[max_bracket[, "value"] == "$75,000 under $100,000", "value"] <- "100000"
+max_bracket[max_bracket[, "value"] == "$100,000 under $200,000", "value"] <- "E: $100,000 - $200,000"
+max_bracket[max_bracket[, "value"] == "$1 under $25,000", "value"] <- "A: $1 - $25,000"
+max_bracket[max_bracket[, "value"] == "$25,000 under $50,000", "value"] <- "B: $25,000 - $50,000"
+max_bracket[max_bracket[, "value"] == "$50,000 under $75,000", "value"] <- "C: $50,000 - $75,000"
+max_bracket[max_bracket[, "value"] == "$200,000 or more", "value"] <- "F: $200,000 or more"
+max_bracket[max_bracket[, "value"] == "$75,000 under $100,000", "value"] <- "D: $75,000 - $100,000"
 
 max_bracket <- max_bracket %>%
   group_by(region) %>%

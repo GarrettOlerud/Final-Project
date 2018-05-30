@@ -17,23 +17,26 @@ ggmap(my_map)
 #start the shiny server
 shinyServer(function(input, output){
   #output plot for first page
-  df <- reactive({
-    x <- get(input$xcol)
-  })
   
   output$plot_pet <- renderPlot({ggmap(my_map)+
-                                  geom_jitter(aes(x = df$longitude, y = df$latitude),
-                                              data = df,
+                                  geom_jitter(aes(x = input$longitude, y = input$latitude),
+                                              data = get(input$xcol),
                                                 alpha = .5,
                                                   color = "darkred",
                                                     size = .1,
                                                       width = .01,
                                                        height = .01)})
  # second graph
- output$tax_pleth <- renderPlot({zip_choropleth(max_bracket,
-                                                           zip_zoom = zip_codes,
-                                                           title = "Most Prevalent Income Bracket in Each Seattle Zipcode",
-                                                           legend = "Tax Bracket")
+ output$tax_pleth <- renderPlot({
+   # Add progress bar because slow to load
+   progress = shiny::Progress$new()
+   on.exit(progress$close())
+   progress$set(message = "Creating image. Please wait.", value = 0)
+   #Create map
+   zip_choropleth(max_bracket, zip_zoom = zip_codes,
+                  title =
+                    "Most Prevalent Income Bracket in Each Seattle Zipcode",
+                  legend = "Tax Bracket")
 })
   # Data tables for third page
   output$top_5_cats_df <- DT::renderDataTable({top_5_cats_df

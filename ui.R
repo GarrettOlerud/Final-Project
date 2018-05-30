@@ -24,9 +24,9 @@ ui <- navbarPage(
     mainPanel("Welcome to the spring 2018 Info 201 final project by Madi Hess,
               Spencer Knapp, and Garrett Olerud.  The data used in this project comes from",
               a("Link to Data", href="https://www.kaggle.com/aaronschlegel/seattle-pet-licenses/version/1"),
-              " and includes information on the zipcode of the adoption the primary and secondary breed of
-              the dog or cat.  There is also information about th etax brackets and how many people fall into
-              each of the brackets by zipcode.  The goal of this project is to discover the relationships 
+              " and includes information on the zipcodes of pet adoptions and the primary and secondary breed of
+              the dog or cat adopted.  There is also information about the tax brackets and how many people fall into
+              each of the brackets and filing statuses by zipcode.  The goal of this project is to discover the relationships 
               between the frequency of pet adoptions and the wealth of the area.")
   ),
   tabPanel(
@@ -40,19 +40,21 @@ ui <- navbarPage(
       #define widgets and choices
       selectInput("xcol",
         label = "Data Displayed",
-          choices = list("pet_data_with_lat", "cat_plot", "dog_plot")),
+          choices = list("pet_data_with_lat", "cat_plot", "dog_plot"),
             selected = "pet_data_with_lat"),
     #output plot
       mainPanel(
         plotOutput("plot_pet")
-    )),
+    ))),
   #second page
   tabPanel(
-    titlePanel("chloropleth Map"),
-    headerPanel("something insightful"),
-    sidebarPanel("This graph shows all of the zip code areas
-                 in the city of Seattle and the most prevelant
-                 tax bracket"),
+    titlePanel("Seattle Income Information"),
+    headerPanel("Seattle Tax Returns"),
+    sidebarPanel("These maps show the tax return information for the zip code
+                 areas in the city of Seattle. On the left, you can see the most
+                 prevalent income brackets in each Seattle zip code in 2015.
+                 Please explore other tabs for more specific income prevalence
+                 information."),
     mainPanel(
       plotOutput("tax_pleth")
     )),
