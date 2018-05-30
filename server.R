@@ -18,8 +18,7 @@ my_map <- get_map(
 ggmap(my_map)
 #Start the shiny server
 shinyServer(function(input, output) {
-#Output plot for first tab
-
+#Output plot for Pet Adoptions by Zipcode
   output$plot_pet <- renderPlot({
     ggmap(my_map) +
       geom_jitter(aes(x = pet_data_with_lat$longitude,
@@ -54,7 +53,7 @@ shinyServer(function(input, output) {
         height = .01
       )
   })
-#Output plot for second tab
+#Output plot for Seattle Income Information
   output$tax_pleth <- renderPlot({
     # Create map
     zip_choropleth(max_bracket,
@@ -64,7 +63,7 @@ shinyServer(function(input, output) {
       legend = "Tax Bracket"
     )
   })
-#Output data tables for third page
+#Output data tables for Top Adoptions
   output$top_5_cats_df <- DT::renderDataTable({
     top_5_cats_df
   })
@@ -75,7 +74,7 @@ shinyServer(function(input, output) {
     pet_data
   })
 
-#Output plot for fourth page
+#Output plot for Conclusion & Insights
 output$plot_4 <- renderPlot({
     df = filter(brackets_adoptions, Zip == input$work)
     x <- input$work
