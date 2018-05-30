@@ -7,10 +7,12 @@ library(ggmap)
 library(DT)
 library(shinythemes)
 source("summary.R")
+#Read in Pet data
 pet_data <- read.csv("data/seattle_pet_licenses.csv",
   stringsAsFactors = FALSE,
   na.strings = c("", " ", "NA", "   ", "     ")
 )
+#Read in Tax data
 tax_data <- read.delim("data/wa_incomes_zip_code.csv",
   stringsAsFactors = FALSE
 ) # S/O to Adele for rescuing us
@@ -19,9 +21,11 @@ tax_data <- read.delim("data/wa_incomes_zip_code.csv",
 # Begin UI
 
 ui <- navbarPage(
-  theme = shinytheme("sandstone"),
+ #set theme for entire app
+   theme = shinytheme("sandstone"),
   # tab 1
   "Final",
+#first tab
   tabPanel(
     titlePanel("Overview"),
     mainPanel(
@@ -34,6 +38,7 @@ ui <- navbarPage(
               between the frequency of pet adoptions and the wealth of the area."
     )
   ),
+#second tab  
   tabPanel(
     titlePanel("Pet Adoptions by Zipcode"),
     headerPanel("Select"),
@@ -42,7 +47,7 @@ ui <- navbarPage(
                   Each option plots the pet
                   adoptions from 2005 - 2017 using zipcode
                   for either: All Pets, Cats, or Dogs.")),
-    # define widgets and choices
+    # create tabs to select data to be plotted
     tabsetPanel(
       type = "tabs",
       tabPanel("All pets Adopted", plotOutput("plot_pet")),
@@ -50,7 +55,7 @@ ui <- navbarPage(
       tabPanel("Just Cats", plotOutput("cat_plot"))
     )
   ),
-  # second page
+  # third tab
   tabPanel(
     titlePanel("Seattle Income Information"),
     headerPanel("Seattle Tax Returns"),
@@ -66,7 +71,7 @@ ui <- navbarPage(
 
 
 
-  # third page
+  # fourth tab
   tabPanel(
     titlePanel("Top Adoptions"),
     headerPanel("Top 5 Dog and Cat Adoptions"),
@@ -78,6 +83,7 @@ ui <- navbarPage(
                  search bar to filter down resuts even more
                  say you want to find how many Terriers there
                  are in a seattle zipcode your would type Terrier, 98107"),
+    #Create tabs to select what data you want displayed 
     tabsetPanel(
       type = "tabs",
       tabPanel("Top Cats", DT::dataTableOutput("top_5_cats_df")),
@@ -85,7 +91,7 @@ ui <- navbarPage(
       tabPanel("Total", DT::dataTableOutput("pet_data"))
     )
   ),
-  # fourth page
+  # fifth tab
   tabPanel(
     titlePanel("Conclusion & Insights"),
     headerPanel("something insightful"),
