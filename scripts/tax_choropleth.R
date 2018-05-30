@@ -1,3 +1,9 @@
+## In this file we parse the tax bracket data from the summary.R file 
+##and prepare it to be used in our choropleth map.  
+##We then implement this parsed data into a cholorpleth map.
+
+
+
 # Bring in relevant libraries, sources, and set working directory
 source("scripts/summary.R")
 library("choroplethr")
