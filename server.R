@@ -88,6 +88,18 @@ shinyServer(function(input, output) {
              yaxis = list(title = input$variable),
              xaxis = list(title = "Zip Code"))
   })
+  #otherfourth
+  output$plot_4 <- renderPlot({
+    df = filter(brackets_adoptions, Zip == input$work)
+    x <- input$work
+    y <- pull(df, input$Total_Adoptions)
+    
+    plot_44 <- ggplot() +
+      geom_bar(mapping = aes(x = x, y = y), stat = "identity") +
+      scale_y_continuous(limits = c(0, 6500)) +
+      labs(x = input$work, y = "Total Adoptions", title = Please)
+    return(plot_44)
+  })
 })
 
 # output$brackets_adoptions_plot <- ggplot(data = brackets_adoptions) +

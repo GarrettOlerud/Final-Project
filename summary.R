@@ -115,3 +115,4 @@ total_adoptions_by_zip <- most_adopted %>% group_by(zip) %>% summarize(count = n
 # join both dataframes
 brackets_adoptions <- left_join(most_common_bracket, total_adoptions_by_zip, by = "zip")
 colnames(brackets_adoptions) <- c("Zip", "Most_Common_Bracket", "Returns", "Total_Adoptions")
+

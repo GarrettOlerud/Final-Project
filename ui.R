@@ -96,10 +96,12 @@ ui <- navbarPage(
     titlePanel("Conclusion & Insights"),
     headerPanel("something insightful"),
     sidebarPanel(
-      selectInput("selected", "Variable", names(brackets_adoptions)),
-      selected = names(brackets_adoptions)),
+      checkboxGroupInput("work",
+                         label = "please",
+                         choices = brackets_adoptions$Zip,
+                         selected = NULL)),
     mainPanel(
-      plotlyOutput("plot_4")
+      plotOutput("plot_44")
     ))
 )
 
