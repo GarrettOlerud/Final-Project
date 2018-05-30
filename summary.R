@@ -60,12 +60,20 @@ tax_data <- tax_data[tax_data$zip %in% zip_codes, ] # Only Seattle zipcodes
 tax_data[, 1] <- as.character(tax_data[, 1]) # Make character to join with zipcode
 tax_with_lat <- left_join(tax_data, zipcode, by = "zip")
 
+
+#Find most top 5 adopted dogs and cats by breed
+most_adopted <- pet_data_with_lat %>% select(primary_breed,
+                                              species, zip, city, latitude, longitude)
+#Function from David Arenburg
+#https://tinyurl.com/yafunvtp
+
 # Working on most_adopted_pets visualization below
 most_adopted <- pet_data_with_lat %>% select(
   primary_breed,
   species, zip, city, latitude, longitude)
 # Function from David Arenburg
 # https://tinyurl.com/yafunvtp
+
 
 freqfunc <- function(x, n) {
   tail(sort(table(unlist(strsplit(as.character(x), ", ")))), n)
@@ -81,10 +89,15 @@ colnames(top_5_dogs_df) <- c("Dog Breed", "Frequency")
 most_adopted_cats <- most_adopted %>% filter(species == "Cat")
 top_5_cats <- freqfunc(most_adopted_cats$primary_breed, 5)
 top_5_cats_df <- data.frame(top_5_cats) %>% arrange(desc(Freq))
+
+
+#Find 5 post popular dog names and 5 most popular cat names
+
 colnames(top_5_cats_df) <- c("Cat Breed", "Frequency")
 #fiter data to be just cats or dogs for plotting
 cat_plot <- pet_data_with_lat %>% filter(species == "Cat")
 dog_plot <- pet_data_with_lat %>% filter(species == "Dog")
+
 
 #determine most common tax bracket for each zipcode, include the bracket $ range
 
