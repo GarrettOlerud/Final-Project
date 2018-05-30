@@ -1,3 +1,8 @@
+## In this file we take in parsed data from summary.R and pet_adoptions.R 
+## and use it to create tables used to create the plot on our conclusions page
+## as well as the pet adoptions choropleth map
+
+
 # Bring in relevant libraries, sources, and set working directory
 source("scripts/summary.R")
 source("scripts/pet_adoptions.R")

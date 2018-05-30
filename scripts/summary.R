@@ -1,4 +1,6 @@
-# Below, please find the most significant portions of our data wrangling.
+## Below, you will find the most significant portions of our data wrangling.
+##In this file we read in all of our data and do the necessary wrangling
+##to prepare it for use in our graphs.
 
 # Set working directory then read in relevant libraries and data
 library(dplyr)

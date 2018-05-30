@@ -1,3 +1,6 @@
+## In this file we observe the frequency of pet adoptions through
+## various lenses of filtering and wrangling.
+
 # Load relavant libraries, set working directory, and source summary.R file
 library("dplyr")
 library(dplyr)
