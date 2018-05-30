@@ -1,3 +1,4 @@
+# Below, please find the most significant portions of our data wrangling.
 # Set working directory then read in relevant libraries and data
 library(dplyr)
 library(maps)
@@ -33,20 +34,12 @@ pet_data <- pet_data[!is.na(pet_data$zip_code), ] # Remove NAs
 # campaign=google_rich_qa
 
 pet_data <- pet_data[pet_data$zip_code %in% zip_codes, ]
-# Remove non-Seattle zipcodes. Source: https://stackoverflow.com/questions/
-# 21200057/selecting-rows-of-which-the-value-of-the-variable-is-equal-to-certain-
-# vector?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+# Remove non-Seattle zipcodes.
+# Source: https://stackoverflow.com/questions/21200057/selecting-rows-of-which-
+# the-value-of-the-variable-is-equal-to-certain-vector?utm_medium=organic&utm_
+# source=google_rich_qa&utm_campaign=google_rich_qa
 
 pet_data_zip <- pet_data %>% group_by(zip_code) %>% select(zip_code)
-
-# map <- ggplot(pet_data,aes(longitude,latitude)) +
-# geom_polygon(aes(x=long,y=lat,group=group),color='gray',fill=NA,alpha=.35)+
-# geom_point(aes(color = count),size=.15,alpha=.25) +
-# xlim(-125,-65)+ylim(20,50)
-
-
-# Recommend using tax bracket bins and now joining data sets
-# Don't join dataframes if it makes no sense
 
 # Attach lat and long to pet_data using zipcode package
 colnames(pet_data)[which(names(pet_data) == "zip_code")] <- "zip"
@@ -57,62 +50,5 @@ pet_data_with_lat <- left_join(pet_data, zipcode, by = "zip")
 # And the same for tax_data
 colnames(tax_data)[1] <- "zip"
 tax_data <- tax_data[tax_data$zip %in% zip_codes, ] # Only Seattle zipcodes
-tax_data[, 1] <- as.character(tax_data[, 1]) # Make character to join with zipcode
+tax_data[, 1] <- as.character(tax_data[, 1]) # Make character to join w/ zipcode
 tax_with_lat <- left_join(tax_data, zipcode, by = "zip")
-
-
-# Find most top 5 adopted dogs and cats by breed
-most_adopted <- pet_data_with_lat %>% select(
-  primary_breed,
-  species, zip, city, latitude, longitude
-)
-# Function from David Arenburg
-# https://tinyurl.com/yafunvtp
-
-# Working on most_adopted_pets visualization below
-most_adopted <- pet_data_with_lat %>% select(
-  primary_breed,
-  species, zip, city, latitude, longitude
-)
-# Function from David Arenburg
-# https://tinyurl.com/yafunvtp
-
-
-freqfunc <- function(x, n) {
-  tail(sort(table(unlist(strsplit(as.character(x), ", ")))), n)
-}
-
-# Top 5 Dogs dataframe
-most_adopted_dogs <- most_adopted %>% filter(species == "Dog")
-top_5_dogs <- freqfunc(most_adopted_dogs$primary_breed, 5)
-top_5_dogs_df <- data.frame(top_5_dogs) %>% arrange(desc(Freq))
-colnames(top_5_dogs_df) <- c("Dog Breed", "Frequency")
-
-# Top 5 Cats dataframe
-most_adopted_cats <- most_adopted %>% filter(species == "Cat")
-top_5_cats <- freqfunc(most_adopted_cats$primary_breed, 5)
-top_5_cats_df <- data.frame(top_5_cats) %>% arrange(desc(Freq))
-
-
-# Find 5 post popular dog names and 5 most popular cat names
-
-colnames(top_5_cats_df) <- c("Cat Breed", "Frequency")
-# fiter data to be just cats or dogs for plotting
-cat_plot <- pet_data_with_lat %>% filter(species == "Cat")
-dog_plot <- pet_data_with_lat %>% filter(species == "Dog")
-
-
-# determine most common tax bracket for each zipcode, include the bracket $ range
-
-most_common_bracket <- tax_with_lat %>%
-  select(zip, Adjusted.Gross.Income, Number.of.returns) %>%
-  group_by(zip) %>%
-  top_n(1, Number.of.returns)
-
-# determine number of adoptions per zipcode
-total_adoptions_by_zip <- most_adopted %>% group_by(zip) %>% summarize(count = n())
-
-# join both dataframes
-brackets_adoptions <- left_join(most_common_bracket, total_adoptions_by_zip, by = "zip")
-colnames(brackets_adoptions) <- c("Zip", "Most_Common_Bracket", "Returns", "Total_Adoptions")
-
