@@ -40,7 +40,10 @@ ui <- navbarPage(
       is also information about the tax brackets and how many people
       fall into each of the brackets and filing statuses by zipcode.
       The goal of this project is to discover the relationships
-      between the frequency of pet adoptions and the wealth of the area."
+      between the frequency of pet adoptions and the wealth of the area.
+      We also hope to help provide potential pet-adopters with a better
+      way to learn about and explore the statistics of pet adoption in
+      their area"
     )
   ),
   # second tab
