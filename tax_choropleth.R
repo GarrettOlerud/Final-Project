@@ -54,4 +54,4 @@ tax_map <- zip_choropleth(max_bracket,
                title = "Most Prevalent Income Bracket in Each Seattle Zipcode",
                legend = "Tax Bracket") +
   coord_map()
-
+install.packages("choroplethrZip")
