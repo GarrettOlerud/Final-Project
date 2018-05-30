@@ -2,12 +2,12 @@ library(dplyr)
 library(ggplot2)
 library(ggmap)
 library(DT)
+library("choroplethr")
+library("choroplethrZip")
 source("scripts/summary.r")
 source("scripts/tax_choropleth.R")
 source("scripts/adoptions_by_income.R")
 source("scripts/pet_adoptions.R")
-library("choroplethr")
-library("choroplethrZip")
 
 #Start the shiny server
 shinyServer(function(input, output) {

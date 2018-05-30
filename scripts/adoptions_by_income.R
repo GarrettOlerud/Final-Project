@@ -1,21 +1,24 @@
-source("summary.R")
-source("pet_adoptions.R")
+# Bring in relevant libraries, sources, and set working directory
+source("scripts/summary.R")
+source("scripts/pet_adoptions.R")
 library("dplyr")
 library("ggplot2")
 library("choroplethr")
 library("choroplethrZip")
 
-brackets_adoptions_pet <- brackets_adoptions %>%
-  group_by(Zip) %>%
-  tally(Total_Adoptions)
-colnames(brackets_adoptions_pet) <- c("region", "value")
-
+# Make a table grouping adoptions by tax bracket and add together the adoptions.
 brackets_adoptions_1 <- brackets_adoptions %>%
   group_by(Most_Common_Bracket) %>%
   tally(Total_Adoptions)
 
 brackets_adoptions_1$lab <- as.character(brackets_adoptions_1$n)
 
+# Make a table that groups by zip and adds together the total pet adoptions per
+#zipcode.  Also, give it the proper labels to be used in choroplethr.
+brackets_adoptions_pet <- brackets_adoptions %>%
+  group_by(Zip) %>%
+  tally(Total_Adoptions)
+colnames(brackets_adoptions_pet) <- c("region", "value")
 
 # Create plot
 ggplot(data = brackets_adoptions_1) +

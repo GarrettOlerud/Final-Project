@@ -4,7 +4,7 @@ library(dplyr)
 library(ggplot2)
 library(ggmap)
 library(DT)
-source("summary.R")
+source("scripts/summary.R")
 
 # Total adoptions of dogs and cats
 compare_pets <- pet_data %>%
