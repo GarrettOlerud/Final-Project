@@ -6,7 +6,7 @@ source("summary.r")
 source("tax_choropleth.R")
 library("choroplethr")
 library("choroplethrZip")
-# set location and build map for ggmap
+#Set location and build map for ggmap
 my_location <- "University of Washington"
 my_map <- get_map(
   location = my_location,
@@ -16,13 +16,14 @@ my_map <- get_map(
   zoom = 11
 )
 ggmap(my_map)
-# start the shiny server
+#Start the shiny server
 shinyServer(function(input, output) {
-  # output plot for first page
+#Output plot for first tab
 
   output$plot_pet <- renderPlot({
     ggmap(my_map) +
-      geom_jitter(aes(x = pet_data_with_lat$longitude, y = pet_data_with_lat$latitude),
+      geom_jitter(aes(x = pet_data_with_lat$longitude,
+                      y = pet_data_with_lat$latitude),
         data = pet_data_with_lat,
         alpha = .5,
         color = "darkred",
@@ -53,7 +54,7 @@ shinyServer(function(input, output) {
         height = .01
       )
   })
-  # second graph
+#Output plot for second tab
   output$tax_pleth <- renderPlot({
     # Create map
     zip_choropleth(max_bracket,
@@ -63,7 +64,7 @@ shinyServer(function(input, output) {
       legend = "Tax Bracket"
     )
   })
-  # Data tables for third page
+#Output data tables for third page
   output$top_5_cats_df <- DT::renderDataTable({
     top_5_cats_df
   })
@@ -74,7 +75,7 @@ shinyServer(function(input, output) {
     pet_data
   })
 
-  # Visual on tab 4
+#Output plot for fourth page
   output$plot_4 <- renderPlotly({
     y <- brackets_adoptions[[input$variable]]
     plot_ly(
@@ -89,19 +90,3 @@ shinyServer(function(input, output) {
              xaxis = list(title = "Zip Code"))
   })
 })
-
-# output$brackets_adoptions_plot <- ggplot(data = brackets_adoptions) +
-# geom_bar(aes(fill = variable), position = "dodge", stat = "identity") +
-# labs(x = "Zip Code", y = "Total Adoptions") +
-# ggtitle("Please Work") +
-# theme(axis.text.x = element_text(angle = -85, hjust = 0)) +
-# scale_fill_discrete(name="Key")
-
-# output$brackets_adoptions_plot_2 <-renderPlot({
-# ggplot(data = brackets_adoptions, aes(x = input$Most_Common_Bracket, y = input$Total_Adoptions))  +
-#  stat_summary(fun.y = sum, geom = "bar",colour = "#56B4E9", fill = "#56B4E9") +
-# geom_bar(stat = "identity") +
-# labs(title=input$Zip, y =input$Total_Adoptions) +
-# theme_classic() +
-# theme
-# })
