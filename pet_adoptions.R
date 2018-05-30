@@ -10,14 +10,14 @@ most_adopted <- pet_data_with_lat %>% select(
 # https://tinyurl.com/yafunvtp
 
 # Working on most_adopted_pets visualization below
-most_adopted <- pet_data_with_lat %>% 
+most_adopted <- pet_data_with_lat %>%
   select(primary_breed, species, zip, city, latitude, longitude)
 # Function from David Arenburg
 # https://tinyurl.com/yafunvtp
 
 freqfunc <- function(x, n) {
   tail(sort(table(unlist(strsplit(as.character(x), ", ")))), n)
-  }
+}
 
 # Top 5 Dogs dataframe
 most_adopted_dogs <- most_adopted %>% filter(species == "Dog")
@@ -35,7 +35,6 @@ colnames(top_5_cats_df) <- c("Cat Breed", "Frequency")
 cat_plot <- pet_data_with_lat %>% filter(species == "Cat")
 dog_plot <- pet_data_with_lat %>% filter(species == "Dog")
 
-
 # Determine most common tax bracket for each zipcode, include the bracket range
 most_common_bracket <- tax_with_lat %>%
   select(zip, Adjusted.Gross.Income, Number.of.returns) %>%
@@ -49,7 +48,9 @@ total_adoptions_by_zip <- most_adopted %>%
 
 # Join both dataframes
 brackets_adoptions <- left_join(most_common_bracket, total_adoptions_by_zip,
-                                by = "zip")
-colnames(brackets_adoptions) <- c("Zip", "Most_Common_Bracket", "Returns",
-                                  "Total_Adoptions")
-
+  by = "zip"
+)
+colnames(brackets_adoptions) <- c(
+  "Zip", "Most_Common_Bracket", "Returns",
+  "Total_Adoptions"
+)

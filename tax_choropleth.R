@@ -1,7 +1,7 @@
 # Bring in relevant libraries, sources, and set working directory
 source("summary.R")
-library(choroplethr)
-library(choroplethrZip)
+library("choroplethr")
+library("choroplethrZip")
 library("dplyr")
 
 # Parse for relevant data
@@ -20,20 +20,27 @@ max_bracket <- tax_with_lat %>%
   filter(bracket_proportion == max(bracket_proportion)) %>%
   select(zip, Adjusted.Gross.Income)
 
+# Change column names and format of internal data
 colnames(max_bracket) <- c("region", "value")
-max_bracket[max_bracket[, "value"] == "$100,000 under $200,000", "value"] <- "E: $100,000 - $200,000"
-max_bracket[max_bracket[, "value"] == "$1 under $25,000", "value"] <- "A: $1 - $25,000"
-max_bracket[max_bracket[, "value"] == "$25,000 under $50,000", "value"] <- "B: $25,000 - $50,000"
-max_bracket[max_bracket[, "value"] == "$50,000 under $75,000", "value"] <- "C: $50,000 - $75,000"
-max_bracket[max_bracket[, "value"] == "$200,000 or more", "value"] <- "F: $200,000 or more"
-max_bracket[max_bracket[, "value"] == "$75,000 under $100,000", "value"] <- "D: $75,000 - $100,000"
+max_bracket[max_bracket[, "value"] ==
+  "$100,000 under $200,000", "value"] <- "E: $100,000 - $200,000"
+max_bracket[max_bracket[, "value"] ==
+  "$1 under $25,000", "value"] <- "A: $1 - $25,000"
+max_bracket[max_bracket[, "value"] ==
+  "$25,000 under $50,000", "value"] <- "B: $25,000 - $50,000"
+max_bracket[max_bracket[, "value"] ==
+  "$50,000 under $75,000", "value"] <- "C: $50,000 - $75,000"
+max_bracket[max_bracket[, "value"] ==
+  "$200,000 or more", "value"] <- "F: $200,000 or more"
+max_bracket[max_bracket[, "value"] ==
+  "$75,000 under $100,000", "value"] <- "D: $75,000 - $100,000"
 
+# Remove double max values objectively
 max_bracket <- max_bracket %>%
   group_by(region) %>%
   top_n(1)
 
-
-# Begin choropleth map: bring in zipcode data and filter out relevant "fip"
+# Begin choropleth map: bring in zipcode data and zoom to specific zip_codes
 data("zip.regions")
 head(zip.regions)
 

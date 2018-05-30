@@ -1,3 +1,4 @@
+# Below, please find the most significant portions of our data wrangling.
 # Set working directory then read in relevant libraries and data
 library(dplyr)
 library(maps)
@@ -33,7 +34,7 @@ pet_data <- pet_data[!is.na(pet_data$zip_code), ] # Remove NAs
 # campaign=google_rich_qa
 
 pet_data <- pet_data[pet_data$zip_code %in% zip_codes, ]
-# Remove non-Seattle zipcodes. 
+# Remove non-Seattle zipcodes.
 # Source: https://stackoverflow.com/questions/21200057/selecting-rows-of-which-
 # the-value-of-the-variable-is-equal-to-certain-vector?utm_medium=organic&utm_
 # source=google_rich_qa&utm_campaign=google_rich_qa
@@ -49,6 +50,5 @@ pet_data_with_lat <- left_join(pet_data, zipcode, by = "zip")
 # And the same for tax_data
 colnames(tax_data)[1] <- "zip"
 tax_data <- tax_data[tax_data$zip %in% zip_codes, ] # Only Seattle zipcodes
-tax_data[, 1] <- as.character(tax_data[, 1]) # Make character to join with zipcode
+tax_data[, 1] <- as.character(tax_data[, 1]) # Make character to join w/ zipcode
 tax_with_lat <- left_join(tax_data, zipcode, by = "zip")
-
