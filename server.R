@@ -2,21 +2,13 @@ library(dplyr)
 library(ggplot2)
 library(ggmap)
 library(DT)
-source("summary.r")
-source("tax_choropleth.R")
-source("adoptions_by_income.R")
+source("scripts/summary.r")
+source("scripts/tax_choropleth.R")
+source("scripts/adoptions_by_income.R")
+source("scripts/pet_adoptions.R")
 library("choroplethr")
 library("choroplethrZip")
-#Set location and build map for ggmap
-my_location <- "University of Washington"
-my_map <- get_map(
-  location = my_location,
-  source = "google",
-  maptype = "roadmap",
-  crop = FALSE,
-  zoom = 11
-)
-ggmap(my_map)
+
 #Start the shiny server
 shinyServer(function(input, output) {
 #Output plot for Pet Adoptions by Zipcode
@@ -66,14 +58,15 @@ shinyServer(function(input, output) {
   })
   output$income_pleth <- renderPlot({
     # Get variables
-    df <- filter(tax_with_lat, Adjusted.Gross.Income == input$income) %>%
+    df <- tax_with_lat %>%
+      filter(Adjusted.Gross.Income == input$income) %>%
       select(region = zip, value = Number.of.returns)
     
     # Create map
     zip_choropleth(df,
                    zip_zoom = zip_codes,
                    title =
-                     paste0(input$income, "Tax Bracket in Each Seattle Zipcode"),
+                  paste0(input$income, "Tax Bracket per Each Seattle Zipcode"),
                    legend = "Key"
     )
   })
@@ -94,7 +87,7 @@ output$income_adoptions <- renderPlot ({
   ggplot(data = brackets_adoptions_1) +
     geom_bar(mapping = aes(x = brackets_adoptions_1$Most_Common_Bracket, 
                            y = brackets_adoptions_1$n), stat = "identity",
-             fill = "midnight blue") +
+             fill = "midnight blue", width = 1) +
     labs(x = "Income Bracket", y = "Pet Adoptions") +
     geom_text(mapping = aes(x = brackets_adoptions_1$Most_Common_Bracket, 
                             y = brackets_adoptions_1$n,

@@ -6,7 +6,8 @@ library(shiny)
 library(ggmap)
 library(DT)
 library(shinythemes)
-source("summary.R")
+source("scripts/summary.R")
+
 # Read in Pet data
 pet_data <- read.csv("data/seattle_pet_licenses.csv",
   stringsAsFactors = FALSE,
@@ -19,7 +20,6 @@ tax_data <- read.delim("data/wa_incomes_zip_code.csv",
 # from this _tab_ seperated file.
 
 # Begin UI
-
 ui <- navbarPage(
   # set theme for entire app
   theme = c(shinytheme("sandstone"), "www/styles.css"),

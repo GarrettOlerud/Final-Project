@@ -7,7 +7,6 @@ library("ggplot2")
 library(zipcode)
 data(zipcode)
 library("stringr")
-
 pet_data <- read.csv("data/seattle_pet_licenses.csv",
   stringsAsFactors = FALSE,
   na.strings = c("", " ", "NA", "   ", "     ")

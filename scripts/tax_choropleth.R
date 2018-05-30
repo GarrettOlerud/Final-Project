@@ -1,5 +1,5 @@
 # Bring in relevant libraries, sources, and set working directory
-source("scripts/summary.R")
+source("summary.R")
 library("choroplethr")
 library("choroplethrZip")
 library("dplyr")
