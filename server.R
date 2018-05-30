@@ -64,6 +64,19 @@ shinyServer(function(input, output) {
       legend = "Tax Bracket"
     )
   })
+  output$income_pleth <- renderPlot({
+    # Get variables
+    df <- filter(tax_with_lat, Adjusted.Gross.Income == input$income) %>%
+      select(region = zip, value = Number.of.returns)
+    
+    # Create map
+    zip_choropleth(df,
+                   zip_zoom = zip_codes,
+                   title =
+                     paste0(input$income, "Tax Bracket in Each Seattle Zipcode"),
+                   legend = "Key"
+    )
+  })
 #Output data tables for Top Adoptions
   output$top_5_cats_df <- DT::renderDataTable({
     top_5_cats_df
@@ -87,7 +100,9 @@ output$income_adoptions <- renderPlot ({
                             y = brackets_adoptions_1$n,
                             label = brackets_adoptions_1$lab), vjust = -0.15) +
     ggtitle("Pet Adoptions by Income Bracket") +
-    theme(axis.text.x  = element_text(angle=-45, hjust=0,colour="black")) +
+    theme(panel.background = element_blank(),
+          axis.line = element_line(colour = "black"),
+          axis.text.x  = element_text(angle=-45, hjust=0,colour="black")) +
     scale_x_discrete(breaks = brackets_adoptions_1$Most_Common_Bracket,
                      limits = c("$1 under $25,000", 
                                 "$25,000 under $50,000",
@@ -101,7 +116,9 @@ output$pet_pleth <- renderPlot({
                  zip_zoom = zip_codes,
                  title = "Total Pet Adoptions in Each Seattle Zipcode",
                  legend = "Number of Adoptions")
-
+})
+# Comparing pet adoptions by species table
+  output$compare_pets <- DT::renderDataTable({compare_pets
 })
 }
 )

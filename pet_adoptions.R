@@ -2,6 +2,13 @@
 library("dplyr")
 source("summary.R")
 
+# Total adoptions of dogs and cats
+compare_pets <- pet_data %>%
+  filter(species != "Livestock") %>% # An outier in our data
+  group_by(species) %>%
+  count()
+colnames(compare_pets) <- c("Species", "Total Adoptions")
+
 # Find most top 5 adopted dogs and cats by breed
 most_adopted <- pet_data_with_lat %>% select(
   primary_breed, species, zip, city, latitude, longitude

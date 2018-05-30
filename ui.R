@@ -22,7 +22,7 @@ tax_data <- read.delim("data/wa_incomes_zip_code.csv",
 
 ui <- navbarPage(
   # set theme for entire app
-  theme = shinytheme("sandstone"),
+  theme = c(shinytheme("sandstone"), "www/styles.css"),
   # tab 1
   "Final",
   # first tab
@@ -73,12 +73,22 @@ ui <- navbarPage(
     sidebarPanel("These maps show the tax return information for the zip code
                  areas in the city of Seattle. On the left, you can see the most
                  prevalent income brackets in each Seattle zip code in 2015.
-                 Please explore other tabs for more specific income prevalence
-                 information."),
-    mainPanel(
-      plotOutput("tax_pleth")
-    )
-  ),
+                 Please explore the other tab for more specific income
+                 prevalence information."),
+    tabsetPanel(
+      type = "tabs",
+      tabPanel("Most Prevalent Income Brackets", plotOutput("tax_pleth")),
+      tabPanel("Data by Income Bracket", selectInput("income",
+                                              label = "",
+                                              choices = 
+                                                c("$1 under $25,000",
+                                                  "$25,000 under $50,000",
+                                                  "$50,000 under $75,000",
+                                                  "$75,000 under $100,000",
+                                                  "$100,000 under $200,000",
+                                                  "$200,000 or more"))),
+      plotOutput("income_pleth"))
+    ),
 
   # fourth tab
   tabPanel(
@@ -107,24 +117,27 @@ ui <- navbarPage(
     headerPanel("Seattle: Home of the DAWGS"),
     sidebarPanel("Certain neighborhoods tend to adopt more pets than others. 
                   This is often based on location, areas that are closer to 
-                  parks were more likely to adopt than areas that were not. 
-                  This is evident by far more pets being adopted in area codes
-                  near Green Lake compared to the center of downtown Seattle. 
-                  Income seems to have some type of affect on adoption rates, 
-                  however our data does not provide individual tax returns to
-                  correspond with adoption records. Without this, we can only 
-                  make an educated claim that incomes in mid-high tax brackets 
-                  tend to adopt more pets than those in low tax brackets or 
-                  those in the highest bracket. This claim does not have enough 
-                  data to be fully supported. Finally, our data clearly showed 
-                 that dogs are far more likely to be adopted than cats in the
-                 Seattle area. We hypothesize this may be due to a dog-friendly
-                 work culture in Seattle (i.e. Amazon allowing owners to bring 
-                 dogs), a higher number of dogs offered for adoption, or an
-                 incomplete data set."),
+                  parks and farther from the main city were more likely to adopt
+                  than areas that were not. This is evident by the fact that
+                  there are far more pets being adopted in area codes near Green
+                  Lake and other north Seattle neighborhoods compared to the
+                  center of downtown Seattle. Income seems to have some type of
+                  affect on adoption rates as well, however our data does not 
+                  provide individual tax returns to correspond with adoption 
+                  records. Without this, we can only make an educated guess
+                  that mid-level income tax brackets tend to adopt more pets
+                  than those in low tax brackets or those in the highest bracket
+                  . This claim does not have enough data to be fully supported
+                  and should be further investigated.
+                  Finally, our data clearly showed that dogs are far more likely
+                  to be adopted than cats in the Seattle area. We hypothesize
+                  this may be due to a dog-friendly work culture in Seattle 
+                  (i.e. Amazon allowing owners to bring dogs), a higher number 
+                  of dogs offered for adoption, or an incomplete data set."),
     tabsetPanel(
       type = "tabs",
       tabPanel("Income Bracket vs. Pet Adoptions", plotOutput("income_adoptions")),
-      tabPanel("Total Pet Adoptions", plotOutput("pet_pleth"))
+      tabPanel("Total Pet Adoptions", plotOutput("pet_pleth")),
+      tabPanel("Comparing Adoptions by Species", DT::dataTableOutput("compare_pets"))
     )
 ))
