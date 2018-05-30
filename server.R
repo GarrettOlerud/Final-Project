@@ -76,17 +76,15 @@ shinyServer(function(input, output) {
   })
 
 #Output plot for fourth page
-  output$plot_4 <- renderPlotly({
-    y <- brackets_adoptions[[input$variable]]
-    plot_ly(
-      data = mutate(brackets_adoptions,
-                    threshold = input$decimal > 0),
-      y = ~ y, x = ~ Zip,
-      color = ~ threshold,
-      text = ~paste("Tax Bracket: ", Most_Common_Tax_Bracket)
-    ) %>%
-      layout(title = "Please",
-             yaxis = list(title = input$variable),
-             xaxis = list(title = "Zip Code"))
+output$plot_4 <- renderPlot({
+    df = filter(brackets_adoptions, Zip == input$work)
+    x <- input$work
+    y <- pull(df, input$Total_Adoptions)
+    
+    plot_44 <- ggplot() +
+      geom_bar(mapping = aes(x = x, y = y), stat = "identity") +
+      scale_y_continuous(limits = c(0, 6500)) +
+      labs(x = input$work, y = "Total Adoptions", title = Please)
+    return(plot_44)
   })
 })
