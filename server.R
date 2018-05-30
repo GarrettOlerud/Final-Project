@@ -19,13 +19,29 @@ shinyServer(function(input, output){
   #output plot for first page
   
   output$plot_pet <- renderPlot({ggmap(my_map)+
-                                  geom_jitter(aes(x = input$longitude, y = input$latitude),
-                                              data = get(input$xcol),
+                                  geom_jitter(aes(x = pet_data_with_lat$longitude, y = pet_data_with_lat$latitude),
+                                              data = pet_data_with_lat,
                                                 alpha = .5,
                                                   color = "darkred",
                                                     size = .1,
                                                       width = .01,
                                                        height = .01)})
+  output$dog_plot <- renderPlot({ggmap(my_map)+
+      geom_jitter(aes(x = dog_plot$longitude, y = dog_plot$latitude),
+                  data = dog_plot,
+                    alpha = .5,
+                      color = "darkred",
+                        size = .1,
+                          width = .01,
+                            height = .01)})
+  output$cat_plot <- renderPlot({ggmap(my_map)+
+      geom_jitter(aes(x = cat_plot$longitude, y = cat_plot$latitude),
+                  data = cat_plot,
+                    alpha = .5,
+                      color = "darkred",
+                        size = .1,
+                          width = .01,
+                            height = .01)})
  # second graph
  output$tax_pleth <- renderPlot({
    # Add progress bar because slow to load
@@ -46,6 +62,21 @@ shinyServer(function(input, output){
  output$pet_data <- DT::renderDataTable({pet_data})
 
 #Visual on tab 4
+ output$plot_4 <- renderPlotly({
+   y <- brackets_adoptions[[input$variable]]
+   plot_ly(
+     data = mutate(brackets_adoptions,
+                   threshold = input$decimal > 0),
+     y = ~ y, x = ~ Zip,
+     color = ~ threshold,
+     text = ~paste("Tax Bracket: ", Most_Common_Tax_Bracket)
+   ) %>%
+     layout(title = "Please",
+            yaxis = list(title = input$variable),
+            xaxis = list(title = "Zip Code"))
+ })
+})
+ 
 #output$brackets_adoptions_plot <- ggplot(data = brackets_adoptions) +
  # geom_bar(aes(fill = variable), position = "dodge", stat = "identity") +
   #labs(x = "Zip Code", y = "Total Adoptions") +
@@ -61,4 +92,4 @@ output$brackets_adoptions_plot_2 <-renderPlot({
     theme_classic() +
     theme
 }) 
-})
+

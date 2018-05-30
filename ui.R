@@ -38,14 +38,11 @@ ui <- navbarPage(
                   adoptions from 2005 - 2017 using zipcode
                   for either: All Pets, Cats, or Dogs."),
       #define widgets and choices
-      selectInput("xcol",
-        label = "Data Displayed",
-          choices = list("pet_data_with_lat", "cat_plot", "dog_plot"),
-            selected = "pet_data_with_lat"),
-    #output plot
-      mainPanel(
-        plotOutput("plot_pet")
-    ))),
+      tabsetPanel(type = "tabs",
+                  tabPanel("All pets Adopted", plotOutput("plot_pet")),
+                  tabPanel("Just Dogs", plotOutput("dog_plot")),
+                  tabPanel("Just Cats", plotOutput("cat_plot")
+                  ))),
   #second page
   tabPanel(
     titlePanel("Seattle Income Information"),
@@ -58,6 +55,9 @@ ui <- navbarPage(
     mainPanel(
       plotOutput("tax_pleth")
     )),
+
+      
+
   #third page
   tabPanel(
     titlePanel("Top Adoptions"),
@@ -76,15 +76,16 @@ ui <- navbarPage(
               tabPanel("Total", DT::dataTableOutput("pet_data")
               ))),
    #fourth page
-   tabPanel(
-     titlePanel("Conclusion & Insights"),
-     headerPanel("something insightful"),
-     sidebarPanel("descriptive paragraphs or widgets"),
-     mainPanel(
-
-       plotOutput("brackets_adoptions_plot_2")
-     ))
-    )
+ tabPanel(
+   titlePanel("Conclusion & Insights"),
+   headerPanel("something insightful"),
+   sidebarPanel(
+     selectInput("selected", "Variable", names(brackets_adoptions)),
+     selected = names(brackets_adoptions)[[1]]),
+   mainPanel(
+     plotlyOutput("plot_4")
+   ))
+)
      
     
   
