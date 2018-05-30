@@ -56,20 +56,7 @@ shinyServer(function(input, output) {
       legend = "Tax Bracket"
     )
   })
-  output$income_pleth <- renderPlot({
-    # Get variables
-    df <- tax_with_lat %>%
-      filter(Adjusted.Gross.Income == input$income) %>%
-      select(region = zip, value = Number.of.returns)
-    
-    # Create map
-    zip_choropleth(df,
-                   zip_zoom = zip_codes,
-                   title =
-                  paste0(input$income, "Tax Bracket per Each Seattle Zipcode"),
-                   legend = "Key"
-    )
-  })
+  
 #Output data tables for Top Adoptions
   output$top_5_cats_df <- DT::renderDataTable({
     top_5_cats_df
@@ -87,7 +74,7 @@ output$income_adoptions <- renderPlot ({
   ggplot(data = brackets_adoptions_1) +
     geom_bar(mapping = aes(x = brackets_adoptions_1$Most_Common_Bracket, 
                            y = brackets_adoptions_1$n), stat = "identity",
-             fill = "midnight blue", width = 1) +
+             fill = "midnight blue", width = 0.5) +
     labs(x = "Income Bracket", y = "Pet Adoptions") +
     geom_text(mapping = aes(x = brackets_adoptions_1$Most_Common_Bracket, 
                             y = brackets_adoptions_1$n,
@@ -95,7 +82,9 @@ output$income_adoptions <- renderPlot ({
     ggtitle("Pet Adoptions by Income Bracket") +
     theme(panel.background = element_blank(),
           axis.line = element_line(colour = "black"),
-          axis.text.x  = element_text(angle=-45, hjust=0,colour="black")) +
+          axis.text.x  = element_text(angle=-45, hjust=0,colour="black"),
+          text = element_text(size=20),
+          plot.title = element_text(hjust = 0.5)) +
     scale_x_discrete(breaks = brackets_adoptions_1$Most_Common_Bracket,
                      limits = c("$1 under $25,000", 
                                 "$25,000 under $50,000",

@@ -22,7 +22,7 @@ tax_data <- read.delim("data/wa_incomes_zip_code.csv",
 # Begin UI
 ui <- navbarPage(
   # set theme for entire app
-  theme = c(shinytheme("sandstone"), "www/styles.css"),
+  theme = shinytheme("sandstone"),
   # tab 1
   "Final",
   # first tab
@@ -72,22 +72,8 @@ ui <- navbarPage(
     headerPanel("Seattle Tax Returns"),
     sidebarPanel("These maps show the tax return information for the zip code
                  areas in the city of Seattle. On the left, you can see the most
-                 prevalent income brackets in each Seattle zip code in 2015.
-                 Please explore the other tab for more specific income
-                 prevalence information."),
-    tabsetPanel(
-      type = "tabs",
-      tabPanel("Most Prevalent Income Brackets", plotOutput("tax_pleth")),
-      tabPanel("Data by Income Bracket", selectInput("income",
-                                              label = "",
-                                              choices = 
-                                                c("$1 under $25,000",
-                                                  "$25,000 under $50,000",
-                                                  "$50,000 under $75,000",
-                                                  "$75,000 under $100,000",
-                                                  "$100,000 under $200,000",
-                                                  "$200,000 or more"))),
-      plotOutput("income_pleth"))
+                 prevalent income brackets in each Seattle zip code in 2015."),
+    mainPanel("Most Prevalent Income Brackets", plotOutput("tax_pleth"))
     ),
 
   # fourth tab
