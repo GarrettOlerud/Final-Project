@@ -76,8 +76,6 @@ ui <- navbarPage(
     )
   ),
 
-
-
   # fourth tab
   tabPanel(
     titlePanel("Top Adoptions"),
@@ -98,19 +96,11 @@ ui <- navbarPage(
       tabPanel("Total", DT::dataTableOutput("pet_data"))
     )
   ),
+  
   # fifth tab
   tabPanel(
     titlePanel("Conclusion & Insights"),
     headerPanel("something insightful"),
     sidebarPanel(
-      checkboxGroupInput("work",
-        label = "please",
-        choices = brackets_adoptions$Zip,
-        selected = NULL
-      )
-    ),
-    mainPanel(
-      plotOutput("plot_44")
-    )
-  )
-)
+      
+)))
