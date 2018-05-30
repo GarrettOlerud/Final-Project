@@ -14,9 +14,13 @@ ggmap(my_map)
 #start the shiny server
 shinyServer(function(input, output){
   #output plot for first page
+  df <- reactive({
+    x <- get(input$xcol)
+  })
+  
   output$plot_pet <- renderPlot({ggmap(my_map)+
-                                  geom_jitter(aes(x = input$longitude, y = input$latitude),
-                                              data = input$xcol,
+                                  geom_jitter(aes(x = df$longitude, y = df$latitude),
+                                              data = df,
                                                 alpha = .5,
                                                   color = "darkred",
                                                     size = .1,
