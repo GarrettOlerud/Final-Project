@@ -10,3 +10,5 @@ Final Project for **INFO 201** Spring 2018
 
 ## Technical Description
   The data will be read in via the read.csv function in R.  The pet license data will need to be joined with the tax returns by income bracket data.  This project will rely on the common libraries used and taught in the course.  We anticipate creating the plotly interactive map to be the most difficult. Additionally, we all have limited coding experience and the shiny webpage may pose other significant challenges. We will access people/resources available to us through this course and search online when we encounter challenges creating our final project.
+
+  **Warning** one of the packages we used choroplethrZip would not download on one of our versions of R, we tried restarting, updating, and all manner of basic troubleshooting,  This package is essential to viewing our work if you have a similar issue please email us at hessmad@uw.edu
